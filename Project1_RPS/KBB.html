@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            R, P & S
+        </title>
+
+    <style>
+            table,
+            th,
+            td {
+                border: 1px solid black;
+            }
+            .ButtonScore {
+                width: 30%;
+                border: none;
+                background-color: rgb(219, 231, 44);
+                padding: 20px 30px;
+                font-size: 20px;
+                cursor: pointer;
+                text-align: center;
+            }
+            .scoreTable
+            {
+                width: 30%;
+                border: black;
+                background-color: rgb(127, 216, 153);
+            }
+    </style>
+   
+    </head>
+    <body bgcolor = "lightblue" width = "10%">
+        <p  style="font-size: 20px; font-weight: bold;">Please select your choice </p>
+        </br></br> 
+        
+    
+        <button id="rock"><img src="Rock.png"></button>
+        <button id="paper"><img src="Paper.png"></button>
+        <button id="scissor"><img src="Scissor.png"></button>
+        </br></br></br>
+        <button type="button" id="GetScore"  class="ButtonScore">Who is the Winner ????</button>
+        </br>
+        <a href="javascript:location.reload(true)">Refresh Page</a>
+        </br></br></br>
+        
+        <table class="scoreTable">
+            <tr>
+                <th></th>
+                <th>Player</th>
+                <th>AI</th>
+            </tr>
+            <tr>
+                <td>Total</td>
+                <td id="Pscore">0</td>
+                <td id="AIscore">0</td>
+            </tr>
+        </table>
+        
+        <div id='score'> 
+
+        </div>
+
+        <script>
+            var PlayerPick; 
+            document.getElementById('rock').onclick = GameON;
+            document.getElementById('paper').onclick = GameON;
+            document.getElementById('scissor').onclick = GameON;
+            document.getElementById('GetScore').onclick = Getscoreboard;
+            
+            
+            function GameON(clicked) 
+            {
+                PlayerPick = this.id;
+                comparefunc();
+            }          
+             
+            
+
+            var pointPlayer = 0;
+            var pointAI = 0;
+            function comparefunc() 
+            {
+
+                    var HoldChoice = ["rock", "paper", "scissor"];
+
+                    // for (let i = 0; i < 3; i++) 
+                    // {
+                        var AIPick = HoldChoice[Math.floor(Math.random() * HoldChoice.length)];
+
+                        if (PlayerPick == "rock") 
+                        {
+                            document.getElementById('score').innerHTML += "<p> AI picks " + AIPick + "</p>";
+                            document.getElementById('score').innerHTML += "<p> Player picks rock </p>";                            
+
+                            if (AIPick == PlayerPick) 
+                                {
+                                    document.getElementById('score').innerHTML += "=>It is a tie!!!!!";
+                                    document.getElementById('score').innerHTML += "<hr>";                            
+                                }
+                            else if (AIPick == "paper") 
+                                {
+                                    document.getElementById('score').innerHTML += "=>AI won this round.";                               
+                                    pointAI++;
+                                    document.getElementById('score').innerHTML += "<hr>"; 
+                                }
+                            else 
+                                {
+                                    document.getElementById('score').innerHTML += "=>Player won this round.";                                
+                                    pointPlayer++;
+                                    document.getElementById('score').innerHTML += "<hr>";
+                                }
+                        }//end compare rock
+                        else if (PlayerPick == "paper") 
+                        {
+                            document.getElementById('score').innerHTML += "<p> AI picks " + AIPick + "</p>";
+                            document.getElementById('score').innerHTML += "<p> Player picks paper </p>";
+
+                            if (AIPick == PlayerPick) 
+                                {
+                                    document.getElementById('score').innerHTML += "=>It is a tie!!!!!";
+                                    document.getElementById('score').innerHTML += "<hr>";
+                                }
+                            else if (AIPick == "scissor") 
+                                {
+                                    document.getElementById('score').innerHTML += "=>AI won this round.";
+                                    pointAI++;
+                                    document.getElementById('score').innerHTML += "<hr>";
+                                }
+                            else 
+                                {
+                                    document.getElementById('score').innerHTML += "=>Player won this round.";
+                                    pointPlayer++;                                   
+                                    document.getElementById('score').innerHTML += "<hr>";
+                                }
+                        }//end compare paper
+                        else if (PlayerPick == "scissor") 
+                        {
+                            document.getElementById('score').innerHTML += "<p> AI picks " + AIPick + "</p>";
+                            document.getElementById('score').innerHTML += "<p> Player picks scissor </p>";
+
+                            if (AIPick == PlayerPick) 
+                                {
+                                    document.getElementById('score').innerHTML += "=>It is a tie!!!!!";
+                                    document.getElementById('score').innerHTML += "<hr>";
+                                }
+                            else if (AIPick == "rock") 
+                                {
+                                    document.getElementById('score').innerHTML += "=>AI won this round.";
+                                    pointAI++;
+                                    document.getElementById('score').innerHTML += "<hr>";
+
+                                }
+                            else 
+                                {
+                                    document.getElementById('score').innerHTML += "=>Player won this round.";
+                                    pointPlayer++; 
+                                    document.getElementById('score').innerHTML += "<hr>";
+                                }
+                        }//end compare scissor
+                        else// compare value of player intered invalid  
+                                {
+                                    document.getElementById('score').innerHTML += "Player picks invalid choice";                                
+                                }
+
+                    // }//end for loop            
+            }
+        function Getscoreboard(){    
+            let nameHuman = "Player";
+            let nameAI = "AI";
+                if (pointPlayer == pointAI) 
+                {
+                    document.getElementById('score').innerHTML += "<hr>";
+                    document.getElementById('score').innerHTML += "No winner found yet!!!!";
+                    document.getElementById('score').innerHTML += "-------------------------------------------------------------------";
+                    document.getElementById('Pscore').innerHTML = pointPlayer;
+                    document.getElementById('AIscore').innerHTML = pointAI;
+                }
+                else if (pointPlayer > pointAI) 
+                {
+                    scoreBoard(nameHuman, nameAI, pointAI, pointPlayer);
+                    //break;
+                }
+                else 
+                {
+                    scoreBoard(nameAI, nameHuman, pointPlayer, pointAI);
+                    //break;
+                }
+        }//getscoreboard
+
+        //SCORE BOARD
+        function scoreBoard(winner, loser, loserPoint, point) 
+        {
+            document.getElementById('Pscore').innerHTML = pointPlayer;
+            document.getElementById('AIscore').innerHTML = pointAI;
+            document.getElementById('score').innerHTML += "<hr>";
+            document.getElementById('score').innerHTML += loser + " has " + loserPoint + " point(s)";
+            document.getElementById('score').innerHTML += "<br>";
+            document.getElementById('score').innerHTML += "FINALLY, the WINNER is: ' " + winner;
+            document.getElementById('score').innerHTML += " ' has won with " + point + " points";    
+            document.getElementById('score').innerHTML += "<br>";
+            document.getElementById('score').innerHTML += "-------------------------------------------------------------------";
+        }
+
+        </script>
+    </body>
+</html>
